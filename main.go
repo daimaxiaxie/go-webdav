@@ -27,6 +27,7 @@ func main() {
 			fmt.Println("no login")
 		}
 		fmt.Println("login: ", username, password)
+		fmt.Println("request: ", req.RequestURI)
 		if strings.HasPrefix(req.RequestURI, handler.Prefix) {
 			handler.ServeHTTP(w, req)
 			return
