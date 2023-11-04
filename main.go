@@ -17,7 +17,7 @@ func main() {
 	flag.Parse()
 	mux := http.NewServeMux()
 	handler := &webdav.Handler{
-		Prefix:     "/dav/",
+		Prefix:     "/dav",
 		FileSystem: webdav.Dir(*path),
 		LockSystem: webdav.NewMemLS(),
 	}
