@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"golang.org/x/net/webdav"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -26,8 +27,12 @@ func main() {
 			fmt.Println("no login")
 		}
 		fmt.Println("login: ", username, password)
-		handler.ServeHTTP(w, req)
-		return
+		if strings.HasPrefix(req.RequestURI, handler.Prefix) {
+			handler.ServeHTTP(w, req)
+			return
+		}
+
+		w.WriteHeader(http.StatusNotFound)
 	})
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", *port), mux); err != nil {
 		fmt.Println(err)
